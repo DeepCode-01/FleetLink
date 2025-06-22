@@ -1,12 +1,12 @@
 const Booking = require('../models/Booking.js');
 
-/**
- * Calculate estimated ride duration based on pincodes
- * This is a simplified placeholder logic as specified in requirements
- * @param {string} fromPincode - Starting pincode
- * @param {string} toPincode - Destination pincode
- * @returns {number} Estimated ride duration in hours
- */
+// /**
+//  * Calculate estimated ride duration based on pincodes
+//  * This is a simplified placeholder logic as specified in requirements
+//  * @param {string} fromPincode - Starting pincode
+//  * @param {string} toPincode - Destination pincode
+//  * @returns {number} Estimated ride duration in hours
+//  */
  function calculateRideDuration(fromPincode, toPincode) {
   const from = parseInt(fromPincode);
   const to = parseInt(toPincode);
@@ -18,13 +18,13 @@ const Booking = require('../models/Booking.js');
   return Math.max(duration, 0.5);
 }
 
-/**
- * Validate if a vehicle is available for a given time window
- * @param {string} vehicleId - Vehicle ID to check
- * @param {Date} startTime - Requested start time
- * @param {Date} endTime - Requested end time
- * @returns {Promise<boolean>} True if available, false if conflicting bookings exist
- */
+// /**
+//  * Validate if a vehicle is available for a given time window
+//  * @param {string} vehicleId - Vehicle ID to check
+//  * @param {Date} startTime - Requested start time
+//  * @param {Date} endTime - Requested end time
+//  * @returns {Promise<boolean>} True if available, false if conflicting bookings exist
+//  */
  async function validateAvailability(vehicleId, startTime, endTime) {
   try {
     // Find any bookings that overlap with the requested time window
@@ -55,11 +55,11 @@ const Booking = require('../models/Booking.js');
   }
 }
 
-/**
- * Get booking statistics for a vehicle
- * @param {string} vehicleId - Vehicle ID
- * @returns {Promise<Object>} Booking statistics
- */
+// /**
+//  * Get booking statistics for a vehicle
+//  * @param {string} vehicleId - Vehicle ID
+//  * @returns {Promise<Object>} Booking statistics
+//  */
  async function getVehicleBookingStats(vehicleId) {
   try {
     const now = new Date();
@@ -87,3 +87,9 @@ const Booking = require('../models/Booking.js');
     throw error;
   }
 }
+
+module.exports = {
+  calculateRideDuration,
+  validateAvailability,
+  getVehicleBookingStats
+};

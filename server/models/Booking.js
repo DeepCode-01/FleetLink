@@ -1,4 +1,4 @@
-const mongoose= require ('mongoose');
+const mongoose = require('mongoose');
 
 const bookingSchema = new mongoose.Schema({
   vehicleId: {
@@ -25,15 +25,21 @@ const bookingSchema = new mongoose.Schema({
     type: Date,
     required: [true, 'Start time is required'],
     validate: {
-      validator: function(value) {
-        return value > new Date();
+      validator: function (value) {
+        return value > Date.now(); // ensures it's in the future
       },
       message: 'Start time must be in the future'
     }
   },
   endTime: {
     type: Date,
-    required: [true, 'End time is required']
+    required: [true, 'End time is required'],
+    validate: {
+      validator: function (value) {
+        return !this.startTime || value > this.startTime;
+      },
+      message: 'End time must be after start time'
+    }
   },
   estimatedRideDurationHours: {
     type: Number,
@@ -47,7 +53,7 @@ const bookingSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true,
-  toJSON: { 
+  toJSON: {
     transform: (doc, ret) => {
       ret.id = ret._id;
       delete ret._id;
@@ -57,7 +63,9 @@ const bookingSchema = new mongoose.Schema({
   }
 });
 
-// Compound indexes for efficient availability queries
+// Compound indexes
 bookingSchema.index({ vehicleId: 1, startTime: 1, endTime: 1 });
 bookingSchema.index({ customerId: 1, createdAt: -1 });
 
+// ✅ Export the model
+module.exports = mongoose.model('Booking', bookingSchema);

@@ -1,4 +1,4 @@
-const mongoose= require ('mongoose');
+const mongoose = require('mongoose');
 
 const vehicleSchema = new mongoose.Schema({
   name: {
@@ -22,7 +22,7 @@ const vehicleSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true,
-  toJSON: { 
+  toJSON: {
     transform: (doc, ret) => {
       ret.id = ret._id;
       delete ret._id;
@@ -32,6 +32,9 @@ const vehicleSchema = new mongoose.Schema({
   }
 });
 
-// Indexes for better query performance
+// Indexes for query performance
 vehicleSchema.index({ capacityKg: 1 });
-vehicleSchema.index({ name: 1 });
+vehicleSchema.index({ name: 1 }); // Add { unique: true } if names must be unique
+
+// ✅ Export the model
+module.exports = mongoose.model('Vehicle', vehicleSchema);
