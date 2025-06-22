@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose= require ('mongoose');
 
 const vehicleSchema = new mongoose.Schema({
   name: {
@@ -35,5 +35,3 @@ const vehicleSchema = new mongoose.Schema({
 // Indexes for better query performance
 vehicleSchema.index({ capacityKg: 1 });
 vehicleSchema.index({ name: 1 });
-
-export default mongoose.model('Vehicle', vehicleSchema);

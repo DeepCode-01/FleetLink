@@ -1,9 +1,9 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import vehicleRoutes from './routes/vehicles.js';
-import bookingRoutes from './routes/bookings.js';
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const vehicleRoutes = require("./routes/vehicle");
+const bookingRoutes = require("./routes/booking");
 
 dotenv.config();
 
@@ -48,4 +48,3 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-export default app;

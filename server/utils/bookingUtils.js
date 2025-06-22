@@ -1,4 +1,4 @@
-import Booking from '../models/Booking.js';
+const Booking = require('../models/Booking.js');
 
 /**
  * Calculate estimated ride duration based on pincodes
@@ -7,7 +7,7 @@ import Booking from '../models/Booking.js';
  * @param {string} toPincode - Destination pincode
  * @returns {number} Estimated ride duration in hours
  */
-export function calculateRideDuration(fromPincode, toPincode) {
+ function calculateRideDuration(fromPincode, toPincode) {
   const from = parseInt(fromPincode);
   const to = parseInt(toPincode);
   
@@ -25,7 +25,7 @@ export function calculateRideDuration(fromPincode, toPincode) {
  * @param {Date} endTime - Requested end time
  * @returns {Promise<boolean>} True if available, false if conflicting bookings exist
  */
-export async function validateAvailability(vehicleId, startTime, endTime) {
+ async function validateAvailability(vehicleId, startTime, endTime) {
   try {
     // Find any bookings that overlap with the requested time window
     const conflictingBookings = await Booking.find({
@@ -60,7 +60,7 @@ export async function validateAvailability(vehicleId, startTime, endTime) {
  * @param {string} vehicleId - Vehicle ID
  * @returns {Promise<Object>} Booking statistics
  */
-export async function getVehicleBookingStats(vehicleId) {
+ async function getVehicleBookingStats(vehicleId) {
   try {
     const now = new Date();
     

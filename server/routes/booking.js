@@ -1,7 +1,7 @@
-import express from 'express';
-import Booking from '../models/Booking.js';
-import Vehicle from '../models/Vehicle.js';
-import { calculateRideDuration, validateAvailability } from '../utils/bookingUtils.js';
+const express = require("express");
+const Booking = require('../models/Booking.js');
+const Vehicle = require('../models/Vehicle.js');
+const { calculateRideDuration, validateAvailability } = require ('../utils/bookingUtils.js');
 
 const router = express.Router();
 
@@ -133,5 +133,3 @@ router.delete('/bookings/:id', async (req, res) => {
     res.status(500).json({ message: 'Failed to cancel booking' });
   }
 });
-
-export default router;

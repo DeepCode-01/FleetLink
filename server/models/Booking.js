@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose= require ('mongoose');
 
 const bookingSchema = new mongoose.Schema({
   vehicleId: {
@@ -61,4 +61,3 @@ const bookingSchema = new mongoose.Schema({
 bookingSchema.index({ vehicleId: 1, startTime: 1, endTime: 1 });
 bookingSchema.index({ customerId: 1, createdAt: -1 });
 
-export default mongoose.model('Booking', bookingSchema);

@@ -1,7 +1,8 @@
-import express from 'express';
-import Vehicle from '../models/Vehicle.js';
-import Booking from '../models/Booking.js';
-import { calculateRideDuration, validateAvailability } from '../utils/bookingUtils.js';
+const express = require("express");
+const Vehicle = require ('../models/Vehicle.js');
+const Booking = require ('../models/Booking.js');
+
+const { calculateRideDuration, validateAvailability } = require ('../utils/bookingUtils.js');
 
 const router = express.Router();
 
@@ -132,5 +133,3 @@ router.get('/vehicles', async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch vehicles' });
   }
 });
-
-export default router;
