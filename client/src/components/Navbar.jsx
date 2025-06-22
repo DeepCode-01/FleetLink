@@ -41,7 +41,7 @@ const Navbar = () => {
             </div>
             <div className="hidden sm:block">
               <span className="text-xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent animate-gradient-x">
-                FleetManager
+                FleetLink
               </span>
               <div className="text-xs text-gray-500 font-medium">
                 Smart Fleet Solutions

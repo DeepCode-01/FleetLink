@@ -1,7 +1,6 @@
-const express = require("express");
+const express = require ('express');
 const Vehicle = require ('../models/Vehicle.js');
 const Booking = require ('../models/Booking.js');
-
 const { calculateRideDuration, validateAvailability } = require ('../utils/bookingUtils.js');
 
 const router = express.Router();
