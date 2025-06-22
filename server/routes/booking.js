@@ -5,6 +5,7 @@ const {
   calculateRideDuration,
   validateAvailability
 } = require ("../utils/bookingUtils.js")
+const mongoose = require("mongoose")
 
 const router = express.Router()
 
@@ -131,6 +132,7 @@ router.get("/bookings", async (req, res) => {
   }
 })
 
+  
 // DELETE /api/bookings/:id - Cancel a booking
 router.delete("/bookings/:id", async (req, res) => {
   try {

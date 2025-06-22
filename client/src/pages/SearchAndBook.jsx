@@ -13,6 +13,7 @@ import {
 } from "lucide-react"
 import { useToast } from "../components/Toaster"
 import axios from "axios"
+import { Link } from 'react-router-dom';
 
 const SearchAndBook = () => {
   const initialSearchData = {
@@ -230,7 +231,7 @@ const SearchAndBook = () => {
               <div>
                 <label
                   htmlFor="capacityRequired"
-                  className="block text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
+                  className=" text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
                 >
                   <Truck size={16} className="text-blue-500" />
                   <span>Capacity Required (KG)</span>
@@ -264,7 +265,7 @@ const SearchAndBook = () => {
               <div>
                 <label
                   htmlFor="fromPincode"
-                  className="block text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
+                  className=" text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
                 >
                   <MapPin size={16} className="text-green-500" />
                   <span>From Pincode</span>
@@ -295,7 +296,7 @@ const SearchAndBook = () => {
               <div>
                 <label
                   htmlFor="toPincode"
-                  className="block text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
+                  className="text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
                 >
                   <MapPin size={16} className="text-red-500" />
                   <span>To Pincode</span>
@@ -326,7 +327,7 @@ const SearchAndBook = () => {
               <div>
                 <label
                   htmlFor="duration"
-                  className="block text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
+                  className=" text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
                 >
                   <Clock size={16} className="text-orange-500" />
                   <span>Duration (Hours)</span>
@@ -360,7 +361,7 @@ const SearchAndBook = () => {
               <div>
                 <label
                   htmlFor="startTime"
-                  className="block text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
+                  className=" text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
                 >
                   <Calendar size={16} className="text-purple-500" />
                   <span>Start Date & Time</span>
@@ -467,7 +468,9 @@ const SearchAndBook = () => {
             <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
               {vehicles.map((vehicle, index) => (
                 <div
-                  key={vehicle.id}
+                 
+                
+               key={vehicle.id}
                   className="group bg-white/90 backdrop-blur-xl rounded-3xl shadow-xl border border-white/30 p-8 hover:shadow-glow-lg transition-all duration-500 transform hover:-translate-y-2 hover:scale-105"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >

@@ -11,6 +11,7 @@ import SearchAndBook from "./pages/SearchAndBook"
 import BookingManagement from "./pages/BookingManagement"
 import { Toaster } from "./components/Toaster"
 
+
 function App() {
   return (
     <Router>
@@ -31,7 +32,7 @@ function App() {
             <Route path="/" element={<Navigate to="/search" replace />} />
             <Route path="/search" element={<SearchAndBook />} />
             <Route path="/add-vehicle" element={<AddVehicle />} />
-            <Route path="/bookings" element={<BookingManagement />} />
+           
           </Routes>
         </main>
         <Toaster />
