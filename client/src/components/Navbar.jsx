@@ -23,6 +23,7 @@ const Navbar = () => {
   }, [])
 
   return (
+    <>
     <nav
       className={`sticky top-0 z-50 transition-all duration-300 ${
         isScrolled
@@ -113,6 +114,7 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
+    </>
   )
 }
 

@@ -67,6 +67,7 @@ const ToastMessage = ({ toast, onRemove }) => {
   const Icon = icons[toast.type]
 
   return (
+    <>
     <div
       className={`flex items-start p-4 rounded-xl border backdrop-blur-xl shadow-xl transition-all duration-500 animate-slide-down hover:scale-105 ${
         colors[toast.type]
@@ -87,6 +88,7 @@ const ToastMessage = ({ toast, onRemove }) => {
         <X className="w-4 h-4" />
       </button>
     </div>
+    </>
   )
 }
 
