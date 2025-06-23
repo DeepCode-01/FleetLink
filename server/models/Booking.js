@@ -63,9 +63,9 @@ const bookingSchema = new mongoose.Schema({
   }
 });
 
-// Compound indexes
+
 bookingSchema.index({ vehicleId: 1, startTime: 1, endTime: 1 });
 bookingSchema.index({ customerId: 1, createdAt: -1 });
 
-// ✅ Export the model
+
 module.exports = mongoose.model('Booking', bookingSchema);

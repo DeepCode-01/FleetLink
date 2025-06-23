@@ -179,10 +179,10 @@ const SearchAndBook = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start py-8 animate-fade-in">
-      {/* Centered Search Form */}
+      
       <div className="w-full max-w-6xl mx-auto px-4">
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden hover:shadow-glow-lg transition-all duration-500">
-          {/* Header */}
+        
           <div className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 p-8 text-white overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/90 to-teal-600/90 animate-gradient-x"></div>
             <div className="relative z-10 flex items-center justify-between">
@@ -224,10 +224,10 @@ const SearchAndBook = () => {
             </div>
           </div>
 
-          {/* Search Form */}
+         
           <form onSubmit={handleSearch} className="p-8 space-y-8">
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
-              {/* Capacity Required */}
+             
               <div>
                 <label
                   htmlFor="capacityRequired"
@@ -261,7 +261,7 @@ const SearchAndBook = () => {
                 </div>
               </div>
 
-              {/* From Pincode */}
+             
               <div>
                 <label
                   htmlFor="fromPincode"
@@ -292,7 +292,7 @@ const SearchAndBook = () => {
                 </div>
               </div>
 
-              {/* To Pincode */}
+             
               <div>
                 <label
                   htmlFor="toPincode"
@@ -323,7 +323,7 @@ const SearchAndBook = () => {
                 </div>
               </div>
 
-              {/* Duration */}
+         
               <div>
                 <label
                   htmlFor="duration"
@@ -357,7 +357,7 @@ const SearchAndBook = () => {
                 </div>
               </div>
 
-              {/* Start Date & Time */}
+             
               <div>
                 <label
                   htmlFor="startTime"
@@ -389,7 +389,7 @@ const SearchAndBook = () => {
               </div>
             </div>
 
-            {/* Search Button */}
+         
             <div className="flex justify-center pt-4 space-x-4">
               <button
                 type="submit"
@@ -424,7 +424,7 @@ const SearchAndBook = () => {
           </form>
         </div>
 
-        {/* No Results Message */}
+      
         {hasSearched && vehicles.length === 0 && !searching && (
           <div className="mt-8 bg-white/90 backdrop-blur-xl rounded-3xl shadow-xl border border-white/30 p-12 text-center animate-slide-up">
             <div className="p-6 bg-gradient-to-br from-orange-100 to-red-100 rounded-full w-24 h-24 mx-auto mb-6 flex items-center justify-center">
@@ -450,7 +450,7 @@ const SearchAndBook = () => {
           </div>
         )}
 
-        {/* Search Results */}
+      
         {vehicles.length > 0 && (
           <div className="mt-10 space-y-6 animate-slide-up">
             <div className="flex items-center justify-between">
@@ -488,7 +488,7 @@ const SearchAndBook = () => {
                         <p className="text-sm text-gray-500 font-medium">
                           ID: {vehicle.id}
                         </p>
-                        {/* Rating Stars Inside Card */}
+                       
                         <div className="flex items-center space-x-1 text-yellow-500 mt-2">
                           <Star size={14} fill="currentColor" />
                           <Star size={14} fill="currentColor" />
@@ -503,7 +503,7 @@ const SearchAndBook = () => {
                     </div>
                   </div>
 
-                  {/* Vehicle Details */}
+                 
                   <div className="space-y-4 mb-8">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 p-4 rounded-2xl border border-blue-200/50">
@@ -559,7 +559,7 @@ const SearchAndBook = () => {
                     </div>
                   </div>
 
-                  {/* Book Button */}
+                 
                   <button
                     onClick={() => handleBooking(vehicle.id, vehicle.name)}
                     disabled={booking === vehicle.id}

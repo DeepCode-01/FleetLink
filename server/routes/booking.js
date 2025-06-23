@@ -9,7 +9,7 @@ const mongoose = require("mongoose")
 
 const router = express.Router()
 
-// POST /api/bookings - Book a vehicle
+// POST /api/bookings 
 router.post("/bookings", async (req, res) => {
   try {
     const {
@@ -20,7 +20,7 @@ router.post("/bookings", async (req, res) => {
       customerId
     } = req.body
 
-    // Validation
+   
     if (!vehicleId || !fromPincode || !toPincode || !startTime || !customerId) {
       return res.status(400).json({
         message: "Missing required fields",
@@ -34,7 +34,7 @@ router.post("/bookings", async (req, res) => {
       })
     }
 
-    // Validate pincode format
+
     if (!/^\d{6}$/.test(fromPincode) || !/^\d{6}$/.test(toPincode)) {
       return res.status(400).json({
         message: "Pincodes must be exactly 6 digits"
@@ -54,13 +54,13 @@ router.post("/bookings", async (req, res) => {
       })
     }
 
-    // Check if vehicle exists
+  
     const vehicle = await Vehicle.findById(vehicleId)
     if (!vehicle) {
       return res.status(404).json({ message: "Vehicle not found" })
     }
 
-    // Calculate ride duration and end time
+
     const estimatedRideDurationHours = calculateRideDuration(
       fromPincode,
       toPincode
@@ -69,7 +69,7 @@ router.post("/bookings", async (req, res) => {
       requestedStartTime.getTime() + estimatedRideDurationHours * 60 * 60 * 1000
     )
 
-    // Re-verify availability to prevent race conditions
+  
     const isAvailable = await validateAvailability(
       vehicleId,
       requestedStartTime,
@@ -82,7 +82,7 @@ router.post("/bookings", async (req, res) => {
       })
     }
 
-    // Create the booking
+  
     const booking = new Booking({
       vehicleId,
       customerId: customerId.trim(),
@@ -95,7 +95,7 @@ router.post("/bookings", async (req, res) => {
 
     const savedBooking = await booking.save()
 
-    // Populate vehicle details for response
+
     await savedBooking.populate("vehicleId")
 
     res.status(201).json(savedBooking)
@@ -143,7 +143,7 @@ router.delete("/bookings/:id", async (req, res) => {
       return res.status(404).json({ message: "Booking not found" })
     }
 
-    // Check if booking can be cancelled (e.g., not in the past)
+
     if (booking.startTime <= new Date()) {
       return res.status(400).json({
         message: "Cannot cancel a booking that has already started"

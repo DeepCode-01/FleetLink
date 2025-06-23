@@ -10,7 +10,7 @@ router.post('/vehicles', async (req, res) => {
   try {
     const { name, capacityKg, tyres } = req.body;
 
-    // Validation
+   
     if (!name || !capacityKg || !tyres) {
       return res.status(400).json({
         message: 'Missing required fields',
@@ -49,7 +49,7 @@ router.get('/vehicles/available', async (req, res) => {
   try {
     const { capacityRequired, fromPincode, toPincode, startTime } = req.query;
 
-    // Validation
+ 
     if (!capacityRequired || !fromPincode || !toPincode || !startTime) {
       return res.status(400).json({
         message: 'Missing required query parameters',
@@ -57,7 +57,7 @@ router.get('/vehicles/available', async (req, res) => {
       });
     }
 
-    // Validate pincode format
+ 
     if (!/^\d{6}$/.test(fromPincode) || !/^\d{6}$/.test(toPincode)) {
       return res.status(400).json({
         message: 'Pincodes must be exactly 6 digits'
@@ -84,11 +84,11 @@ router.get('/vehicles/available', async (req, res) => {
       });
     }
 
-    // Calculate ride duration
+
     const estimatedRideDurationHours = calculateRideDuration(fromPincode, toPincode);
     const requestedEndTime = new Date(requestedStartTime.getTime() + estimatedRideDurationHours * 60 * 60 * 1000);
 
-    // Find vehicles with sufficient capacity
+
     const vehiclesWithCapacity = await Vehicle.find({
       capacityKg: { $gte: capacity }
     });
@@ -97,7 +97,7 @@ router.get('/vehicles/available', async (req, res) => {
       return res.json([]);
     }
 
-    // Check availability for each vehicle
+   
     const availableVehicles = [];
     
     for (const vehicle of vehiclesWithCapacity) {

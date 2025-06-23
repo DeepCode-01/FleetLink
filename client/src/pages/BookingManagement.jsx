@@ -132,7 +132,7 @@ const BookingManagement = () => {
   return (
     <>
       <div className="space-y-8 animate-fade-in">
-        {/* Header  */}
+       
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
           <div className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 p-8 text-white overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/90 to-teal-600/90 animate-gradient-x"></div>
@@ -192,7 +192,7 @@ const BookingManagement = () => {
           </div>
         </div>
 
-        {/* Bookings List */}
+     
         {filteredBookings.length === 0 ? (
           <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 p-16 text-center">
             <div className="p-6 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full w-24 h-24 mx-auto mb-6 flex items-center justify-center">
@@ -273,7 +273,7 @@ const BookingManagement = () => {
 
                   {/* Booking Details Grid */}
                   <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {/* Customer & Vehicle Info */}
+                   
                     <div className="space-y-4">
                       <h4 className="font-bold text-gray-700 text-sm uppercase tracking-wide">
                         Customer & Vehicle
@@ -303,7 +303,7 @@ const BookingManagement = () => {
                       </div>
                     </div>
 
-                    {/* Route & Duration */}
+                 
                     <div className="space-y-4">
                       <h4 className="font-bold text-gray-700 text-sm uppercase tracking-wide">
                         Route & Duration
@@ -335,7 +335,7 @@ const BookingManagement = () => {
                       </div>
                     </div>
 
-                    {/* Timing */}
+               
                     <div className="space-y-4">
                       <h4 className="font-bold text-gray-700 text-sm uppercase tracking-wide">
                         Timing

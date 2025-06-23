@@ -32,9 +32,8 @@ const vehicleSchema = new mongoose.Schema({
   }
 });
 
-// Indexes for query performance
 vehicleSchema.index({ capacityKg: 1 });
-vehicleSchema.index({ name: 1 }); // Add { unique: true } if names must be unique
+vehicleSchema.index({ name: 1 }); 
 
-// ✅ Export the model
+
 module.exports = mongoose.model('Vehicle', vehicleSchema);

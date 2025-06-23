@@ -33,7 +33,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+        
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="relative p-2 bg-gradient-to-r from-blue-500 to-teal-500 rounded-xl text-white shadow-lg group-hover:shadow-glow transition-all duration-300 group-hover:scale-105">
               <Truck size={24} className="relative z-10" />
@@ -49,7 +49,7 @@ const Navbar = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+         
           <div className="hidden md:flex items-center space-x-2">
             {navItems.map(({ path, label, icon: Icon }) => (
               <Link
@@ -79,7 +79,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
+         
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-800 hover:bg-gray-100/80 transition-all duration-200"
@@ -88,7 +88,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+       
         <div
           className={`md:hidden transition-all duration-300 overflow-hidden ${
             isMobileMenuOpen ? "max-h-64 pb-4" : "max-h-0"

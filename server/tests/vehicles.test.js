@@ -56,7 +56,7 @@ describe("Vehicle API Endpoints", () => {
     test("should return 400 for invalid data types", async () => {
       const invalidData = {
         name: "Test Truck",
-        capacityKg: "invalid", // Should be number
+        capacityKg: "invalid",
         tyres: 4
       }
 
@@ -87,7 +87,7 @@ describe("Vehicle API Endpoints", () => {
       ]
 
       Vehicle.find.mockResolvedValue(mockVehicles)
-      Booking.find.mockResolvedValue([]) // No conflicting bookings
+      Booking.find.mockResolvedValue([])
 
       const response = await request(app)
         .get("/api/vehicles/available")
@@ -108,7 +108,7 @@ describe("Vehicle API Endpoints", () => {
         .get("/api/vehicles/available")
         .query({
           capacityRequired: 500
-          // Missing other required parameters
+
         })
 
       expect(response.status).toBe(400)
@@ -120,7 +120,7 @@ describe("Vehicle API Endpoints", () => {
         .get("/api/vehicles/available")
         .query({
           capacityRequired: 500,
-          fromPincode: "1100", // Invalid - not 6 digits
+          fromPincode: "1100",
           toPincode: "400001",
           startTime: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
         })
@@ -136,7 +136,7 @@ describe("Vehicle API Endpoints", () => {
           capacityRequired: 500,
           fromPincode: "110001",
           toPincode: "400001",
-          startTime: new Date(Date.now() - 60 * 60 * 1000).toISOString() // 1 hour ago
+          startTime: new Date(Date.now() - 60 * 60 * 1000).toISOString() 
         })
 
       expect(response.status).toBe(400)

@@ -101,7 +101,7 @@ const AddVehicle = () => {
             <div className="lg:col-span-3">
               <label
                 htmlFor="name"
-                className="block text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
+                className="text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
               >
                 <Truck size={16} className="text-blue-500" />
                 <span>Vehicle Name</span>

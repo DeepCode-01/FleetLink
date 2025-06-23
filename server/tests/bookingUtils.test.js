@@ -15,10 +15,10 @@ describe("Booking Utils", () => {
 
   describe("calculateRideDuration", () => {
     test("should calculate ride duration correctly for different pincodes", () => {
-      expect(calculateRideDuration("110001", "400001")).toBe(22) // |400001 - 110001| % 24 = 22
-      expect(calculateRideDuration("400001", "110001")).toBe(22) // Same result due to absolute value
-      expect(calculateRideDuration("110001", "110002")).toBe(1) // |110002 - 110001| % 24 = 1
-      expect(calculateRideDuration("110001", "110001")).toBe(0.5) // Same pincode, minimum 0.5 hours
+      expect(calculateRideDuration("110001", "400001")).toBe(22) 
+      expect(calculateRideDuration("400001", "110001")).toBe(22) 
+      expect(calculateRideDuration("110001", "110002")).toBe(1) 
+      expect(calculateRideDuration("110001", "110001")).toBe(0.5) 
     })
 
     test("should return minimum duration of 0.5 hours", () => {
@@ -27,7 +27,7 @@ describe("Booking Utils", () => {
     })
 
     test("should handle large pincode differences with modulo 24", () => {
-      expect(calculateRideDuration("100000", "999999")).toBe(23) // |999999 - 100000| % 24 = 23
+      expect(calculateRideDuration("100000", "999999")).toBe(23) 
       expect(calculateRideDuration("999999", "100000")).toBe(23)
     })
   })
