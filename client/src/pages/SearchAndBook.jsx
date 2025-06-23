@@ -187,10 +187,10 @@ const SearchAndBook = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start py-8 animate-fade-in">
-      {/* Centered Search Form */}
+     
       <div className="w-full max-w-6xl mx-auto px-4">
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden hover:shadow-glow-lg transition-all duration-500">
-          {/* Header */}
+         
           <div className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 p-8 text-white overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/90 to-teal-600/90 animate-gradient-x"></div>
             <div className="relative z-10 flex items-center justify-between">

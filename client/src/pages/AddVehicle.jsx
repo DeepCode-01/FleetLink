@@ -145,7 +145,7 @@ const AddVehicle = () => {
               </div>
             </div>
 
-            {/* Capacity */}
+            
             <div className="lg:col-span-1">
               <label
                 htmlFor="capacityKg"
@@ -178,7 +178,7 @@ const AddVehicle = () => {
               </div>
             </div>
 
-            {/* Tyres */}
+          
             <div className="lg:col-span-1">
               <label
                 htmlFor="tyres"
@@ -208,7 +208,7 @@ const AddVehicle = () => {
               </div>
             </div>
 
-            {/* Submit Button */}
+          
             <div className="lg:col-span-1 flex items-end">
               <button
                 type="submit"
@@ -230,7 +230,7 @@ const AddVehicle = () => {
             </div>
           </div>
 
-          {/* Info Cards */}
+        
           <div className="grid md:grid-cols-3 gap-6 pt-8 border-t border-gray-200/50">
             <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 p-6 rounded-2xl border border-blue-200/50 hover:shadow-lg transition-all duration-300 hover:scale-105">
               <div className="flex items-center space-x-3 mb-3">
@@ -271,7 +271,7 @@ const AddVehicle = () => {
         </form>
       </div>
 
-      {/* Recently Added Vehicles */}
+      
       {addedVehicles.length > 0 && (
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden animate-slide-up">
           <div className="relative bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 p-6 text-white overflow-hidden">

@@ -155,7 +155,7 @@ const BookingManagement = () => {
           </div>
         </div>
 
-        {/* Filter Tabs */}
+       
         <div className="p-6 border-b border-gray-200/50">
           <div className="flex flex-wrap gap-3">
             {[
@@ -216,7 +216,7 @@ const BookingManagement = () => {
                 className="group bg-white/90 backdrop-blur-xl rounded-3xl shadow-xl border border-white/30 p-8 hover:shadow-glow-lg transition-all duration-500 transform hover:-translate-y-1 animate-slide-up"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                {/* Booking Header */}
+        
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex items-center space-x-4">
                     <div className="relative p-3 bg-gradient-to-r from-blue-500 to-teal-500 rounded-2xl text-white shadow-lg group-hover:shadow-glow transition-all duration-300">
@@ -268,7 +268,7 @@ const BookingManagement = () => {
                   </div>
                 </div>
 
-                {/* Booking Details Grid */}
+               
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 
                   <div className="space-y-4">
