@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Truck, Plus, Loader2, Zap, Settings } from "lucide-react"
+import { Truck, Plus, Loader2, Zap, Settings, CheckCircle } from "lucide-react"
 import { useToast } from "../components/Toaster"
 import axios from "axios"
 
@@ -11,6 +11,7 @@ const AddVehicle = () => {
   })
   const [loading, setLoading] = useState(false)
   const [focusedField, setFocusedField] = useState(null)
+  const [addedVehicles, setAddedVehicles] = useState([])
   const { showToast } = useToast()
 
   const handleSubmit = async e => {
@@ -47,9 +48,13 @@ const AddVehicle = () => {
         "success",
         `Vehicle "${response.data.name}" added successfully!`
       )
+
+      setAddedVehicles(prev => [response.data, ...prev])
+
+     
       setFormData({ name: "", capacityKg: "", tyres: "" })
     } catch (error) {
-      const message = error.response?.data?.message
+      const message = error.response?.data?.message || "Failed to add vehicle"
       showToast("error", message)
     } finally {
       setLoading(false)
@@ -61,9 +66,18 @@ const AddVehicle = () => {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
+  const formatDateTime = dateString => {
+    return new Date(dateString).toLocaleString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    })
+  }
+
   return (
-    <>
-    <div className="max-w-4xl mx-auto animate-fade-in">
+    <div className="max-w-4xl mx-auto animate-fade-in space-y-8">
       <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden hover:shadow-glow-lg transition-all duration-500">
         {/* Header */}
         <div className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 p-8 text-white overflow-hidden">
@@ -101,7 +115,7 @@ const AddVehicle = () => {
             <div className="lg:col-span-3">
               <label
                 htmlFor="name"
-                className="text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
+                className=" text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
               >
                 <Truck size={16} className="text-blue-500" />
                 <span>Vehicle Name</span>
@@ -256,8 +270,74 @@ const AddVehicle = () => {
           </div>
         </form>
       </div>
+
+      {/* Recently Added Vehicles */}
+      {addedVehicles.length > 0 && (
+        <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden animate-slide-up">
+          <div className="relative bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 p-6 text-white overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-green-600/90 to-teal-600/90 animate-gradient-x"></div>
+            <div className="relative z-10 flex items-center space-x-4">
+              <div className="relative p-3 bg-white/20 rounded-2xl backdrop-blur-sm">
+                <CheckCircle size={24} />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-1">
+                  Recently Added Vehicles
+                </h2>
+                <p className="text-green-100">
+                  {addedVehicles.length} vehicle
+                  {addedVehicles.length !== 1 ? "s" : ""} added successfully
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-6 space-y-4">
+            {addedVehicles.map((vehicle, index) => (
+              <div
+                key={vehicle.id}
+                className="group bg-gradient-to-r from-white to-gray-50/50 rounded-2xl p-6 border border-gray-200/50 hover:shadow-lg transition-all duration-300 hover:scale-102 animate-slide-up"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl text-white shadow-lg">
+                      <Truck size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-800 text-lg">
+                        {vehicle.name}
+                      </h3>
+                      <p className="text-sm text-gray-500">ID: {vehicle.id}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-6 text-sm">
+                    <div className="text-center">
+                      <div className="font-bold text-gray-800">
+                        {vehicle.capacityKg.toLocaleString()}
+                      </div>
+                      <div className="text-gray-500">KG Capacity</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="font-bold text-gray-800">
+                        {vehicle.tyres}
+                      </div>
+                      <div className="text-gray-500">Tyres</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="font-bold text-gray-800">
+                        {formatDateTime(vehicle.createdAt)}
+                      </div>
+                      <div className="text-gray-500">Added</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
-    </>
   )
 }
 

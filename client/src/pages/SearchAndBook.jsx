@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import {
   Search,
   Truck,
@@ -13,35 +13,60 @@ import {
 } from "lucide-react"
 import { useToast } from "../components/Toaster"
 import axios from "axios"
-import { Link } from 'react-router-dom';
 
-const SearchAndBook = () => {
-  const initialSearchData = {
+
+let globalSearchState = {
+  searchData: {
     capacityRequired: "",
     fromPincode: "",
     toPincode: "",
-    startTime: "",
-    duration: ""
-  }
+    startTime: ""
+  },
+  vehicles: [],
+  hasSearched: false
+}
 
-  const [searchData, setSearchData] = useState(initialSearchData)
+const SearchAndBook = () => {
+  const [searchData, setSearchData] = useState(globalSearchState.searchData)
   const [customerId] = useState(
     "customer-" +
       Math.random()
         .toString(36)
         .substr(2, 9)
   )
-  const [vehicles, setVehicles] = useState([])
+  const [vehicles, setVehicles] = useState(globalSearchState.vehicles)
   const [searching, setSearching] = useState(false)
   const [booking, setBooking] = useState(null)
   const [focusedField, setFocusedField] = useState(null)
-  const [hasSearched, setHasSearched] = useState(false)
+  const [hasSearched, setHasSearched] = useState(globalSearchState.hasSearched)
   const { showToast } = useToast()
 
+ 
+  useEffect(() => {
+    globalSearchState = {
+      searchData,
+      vehicles,
+      hasSearched
+    }
+  }, [searchData, vehicles, hasSearched])
+
   const resetForm = () => {
+    const initialSearchData = {
+      capacityRequired: "",
+      fromPincode: "",
+      toPincode: "",
+      startTime: ""
+    }
     setSearchData(initialSearchData)
     setVehicles([])
     setHasSearched(false)
+
+ 
+    globalSearchState = {
+      searchData: initialSearchData,
+      vehicles: [],
+      hasSearched: false
+    }
   }
 
   const handleSearch = async e => {
@@ -51,8 +76,7 @@ const SearchAndBook = () => {
       !searchData.capacityRequired ||
       !searchData.fromPincode ||
       !searchData.toPincode ||
-      !searchData.startTime ||
-      !searchData.duration
+      !searchData.startTime
     ) {
       showToast("error", "Please fill in all search fields")
       return
@@ -69,12 +93,6 @@ const SearchAndBook = () => {
     const capacity = parseFloat(searchData.capacityRequired)
     if (isNaN(capacity) || capacity <= 0) {
       showToast("error", "Capacity must be a positive number")
-      return
-    }
-
-    const duration = parseFloat(searchData.duration)
-    if (isNaN(duration) || duration <= 0) {
-      showToast("error", "Duration must be a positive number")
       return
     }
 
@@ -101,21 +119,12 @@ const SearchAndBook = () => {
         }
       )
 
-      // Add customer-specified duration to each vehicle
-      const vehiclesWithCustomDuration = response.data.map(vehicle => ({
-        ...vehicle,
-        customerDuration: duration
-      }))
-
-      setVehicles(vehiclesWithCustomDuration)
+      setVehicles(response.data)
       setHasSearched(true)
 
       if (response.data.length === 0) {
         showToast("warning", "No vehicles available for the selected criteria")
-        // Reset form when no vehicles found
-        setTimeout(() => {
-          resetForm()
-        }, 2000) // Reset after 2 seconds to allow user to see the message
+        
       } else {
         showToast(
           "success",
@@ -143,8 +152,7 @@ const SearchAndBook = () => {
         fromPincode: searchData.fromPincode,
         toPincode: searchData.toPincode,
         startTime: startTime.toISOString(),
-        customerId,
-        duration: parseFloat(searchData.duration)
+        customerId
       })
 
       showToast(
@@ -179,10 +187,10 @@ const SearchAndBook = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start py-8 animate-fade-in">
-      
+      {/* Centered Search Form */}
       <div className="w-full max-w-6xl mx-auto px-4">
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden hover:shadow-glow-lg transition-all duration-500">
-        
+          {/* Header */}
           <div className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 p-8 text-white overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/90 to-teal-600/90 animate-gradient-x"></div>
             <div className="relative z-10 flex items-center justify-between">
@@ -224,10 +232,9 @@ const SearchAndBook = () => {
             </div>
           </div>
 
-         
           <form onSubmit={handleSearch} className="p-8 space-y-8">
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
-             
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+           
               <div>
                 <label
                   htmlFor="capacityRequired"
@@ -296,7 +303,7 @@ const SearchAndBook = () => {
               <div>
                 <label
                   htmlFor="toPincode"
-                  className="text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
+                  className=" text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
                 >
                   <MapPin size={16} className="text-red-500" />
                   <span>To Pincode</span>
@@ -320,40 +327,6 @@ const SearchAndBook = () => {
                     }`}
                     disabled={searching}
                   />
-                </div>
-              </div>
-
-         
-              <div>
-                <label
-                  htmlFor="duration"
-                  className=" text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2"
-                >
-                  <Clock size={16} className="text-orange-500" />
-                  <span>Duration (Hours)</span>
-                </label>
-                <div className="relative group">
-                  <input
-                    type="number"
-                    id="duration"
-                    name="duration"
-                    value={searchData.duration}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField("duration")}
-                    onBlur={() => setFocusedField(null)}
-                    placeholder="2.5"
-                    min="0.5"
-                    step="0.5"
-                    className={`w-full px-4 py-4 rounded-2xl border-2 font-medium transition-all duration-300 bg-white/80 backdrop-blur-sm placeholder-gray-400 ${
-                      focusedField === "duration"
-                        ? "border-orange-500 ring-4 ring-orange-500/20 shadow-glow scale-105"
-                        : "border-gray-200 hover:border-gray-300 hover:shadow-lg"
-                    }`}
-                    disabled={searching}
-                  />
-                  <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm font-medium">
-                    hrs
-                  </div>
                 </div>
               </div>
 
@@ -389,7 +362,7 @@ const SearchAndBook = () => {
               </div>
             </div>
 
-         
+          
             <div className="flex justify-center pt-4 space-x-4">
               <button
                 type="submit"
@@ -424,7 +397,6 @@ const SearchAndBook = () => {
           </form>
         </div>
 
-      
         {hasSearched && vehicles.length === 0 && !searching && (
           <div className="mt-8 bg-white/90 backdrop-blur-xl rounded-3xl shadow-xl border border-white/30 p-12 text-center animate-slide-up">
             <div className="p-6 bg-gradient-to-br from-orange-100 to-red-100 rounded-full w-24 h-24 mx-auto mb-6 flex items-center justify-center">
@@ -434,9 +406,8 @@ const SearchAndBook = () => {
               No Vehicles Available
             </h3>
             <p className="text-gray-600 text-lg mb-6">
-              We couldn't find any vehicles matching your search criteria. The
-              form will reset automatically, or you can try different search
-              parameters.
+              We couldn't find any vehicles matching your search criteria. Try
+              adjusting your search parameters or search again later.
             </p>
             <div className="flex justify-center space-x-4">
               <button
@@ -450,7 +421,7 @@ const SearchAndBook = () => {
           </div>
         )}
 
-      
+    
         {vehicles.length > 0 && (
           <div className="mt-10 space-y-6 animate-slide-up">
             <div className="flex items-center justify-between">
@@ -468,13 +439,11 @@ const SearchAndBook = () => {
             <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
               {vehicles.map((vehicle, index) => (
                 <div
-                 
-                
-               key={vehicle.id}
+                  key={vehicle.id}
                   className="group bg-white/90 backdrop-blur-xl rounded-3xl shadow-xl border border-white/30 p-8 hover:shadow-glow-lg transition-all duration-500 transform hover:-translate-y-2 hover:scale-105"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  {/* Vehicle Header with Rating */}
+                
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center space-x-4">
                       <div className="relative p-3 bg-gradient-to-r from-blue-500 to-teal-500 rounded-2xl text-white shadow-lg group-hover:shadow-glow transition-all duration-300">
@@ -526,10 +495,10 @@ const SearchAndBook = () => {
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-sm text-gray-600 flex items-center space-x-2">
                           <Clock size={16} />
-                          <span>Your Duration</span>
+                          <span>Estimated Duration</span>
                         </span>
                         <span className="font-bold text-gray-800 text-lg">
-                          {vehicle.customerDuration} hours
+                          {vehicle.estimatedRideDurationHours} hours
                         </span>
                       </div>
                     </div>
@@ -559,7 +528,7 @@ const SearchAndBook = () => {
                     </div>
                   </div>
 
-                 
+                  
                   <button
                     onClick={() => handleBooking(vehicle.id, vehicle.name)}
                     disabled={booking === vehicle.id}
