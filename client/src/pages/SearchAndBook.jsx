@@ -90,7 +90,7 @@ const SearchAndBook = () => {
 
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/vehicles/available",
+        "https://fleetlink-deep.onrender.com/api/vehicles/available",
         {
           params: {
             capacityRequired: capacity,
@@ -138,7 +138,7 @@ const SearchAndBook = () => {
     try {
       const startTime = new Date(searchData.startTime)
 
-      const response = await axios.post("http://localhost:5000/api/bookings", {
+      const response = await axios.post("https://fleetlink-deep.onrender.com/api/bookings", {
         vehicleId,
         fromPincode: searchData.fromPincode,
         toPincode: searchData.toPincode,

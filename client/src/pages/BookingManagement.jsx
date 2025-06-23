@@ -28,7 +28,7 @@ const BookingManagement = () => {
 
   const fetchBookings = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/bookings")
+      const response = await axios.get("https://fleetlink-deep.onrender.com/api/bookings")
       setBookings(response.data)
     } catch (error) {
       const message =
@@ -43,7 +43,7 @@ const BookingManagement = () => {
     setCancelling(bookingId)
 
     try {
-      await axios.delete(`http://localhost:5000/api/bookings/${bookingId}`)
+      await axios.delete(`https://fleetlink-deep.onrender.com/api/bookings/${bookingId}`)
       setBookings(prev =>
         prev.map(booking =>
           booking.id === bookingId

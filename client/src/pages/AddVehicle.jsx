@@ -37,7 +37,7 @@ const AddVehicle = () => {
     setLoading(true)
 
     try {
-      const response = await axios.post("http://localhost:5000/api/vehicles", {
+      const response = await axios.post("https://fleetlink-deep.onrender.com/api/vehicles", {
         name: formData.name.trim(),
         capacityKg,
         tyres
@@ -49,7 +49,7 @@ const AddVehicle = () => {
       )
       setFormData({ name: "", capacityKg: "", tyres: "" })
     } catch (error) {
-      const message = error.response?.data?.message || "Failed to add vehicle"
+      const message = error.response?.data?.message
       showToast("error", message)
     } finally {
       setLoading(false)

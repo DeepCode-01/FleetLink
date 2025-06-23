@@ -8,7 +8,6 @@ import {
 import Navbar from "./components/Navbar"
 import AddVehicle from "./pages/AddVehicle"
 import SearchAndBook from "./pages/SearchAndBook"
-import BookingManagement from "./pages/BookingManagement"
 import { Toaster } from "./components/Toaster"
 
 
